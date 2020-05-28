@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.DeathStatisticsMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.DeathStatistics">
+        <result column="idDeathStatistics" jdbcType="INTEGER" property="idDeathStatistics"/>
+        <result column="disasterID" jdbcType="CHAR" property="disasterID"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="disasterDate" jdbcType="VARCHAR" property="disasterDate"/>
+        <result column="numberDeath" jdbcType="INTEGER" property="numberDeath"/>
+        <result column="reportingUnit" jdbcType="VARCHAR" property="reportingUnit"/>
+    </resultMap>
+    <select id="query" parameterType="CHAR" resultType="com.example.demo.entity.DeathStatistics">
+        select * from deathstatistics where deathstatistics.disasterID=#{disasterID}
+    </select>
+    <!--插入一条新数据-->
+    <insert id="insert" parameterType="com.example.demo.entity.DeathStatistics">
+        insert into deathstatistics (disasterID, location,disasterDate,numberDeath,reportingUnit)
+        values (#{disasterID},#{location},#{disasterDate},#{numberDeath},#{reportingUnit})
+    </insert>
+    <!--按照id删除-->
+    <delete id="delete" parameterType="int">
+        delete from deathstatistics where deathstatistics.idDeathStatistics=#{idDeathStatistics}
+    </delete>
+
+    <update id="update19" parameterType="com.example.demo.entity.DeathStatistics">
+        update deathstatistics  set disasterDate=#{disasterDate},location=#{location},
+    numberDeath=#{numberDeath},reportingUnit=#{reportingUnit} where deathstatistics.disasterID =#{disasterID}
+    </update>
+    <select id="getpage" resultMap="BaseResultMap">
+        select * from deathstatistics LIMIT #{stratRow},#{endRow}
+    </select>
+
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*) from deathstatistics
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from deathstatistics
+    </select>
+
+</mapper>

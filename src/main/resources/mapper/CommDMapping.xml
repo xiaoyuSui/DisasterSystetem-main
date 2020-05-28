@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CommDisasterMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.CommDisaster">
+        <result column="idCommDisaster" jdbcType="INTEGER" property="idCommDisaster"/>
+        <result column="disasterID" jdbcType="CHAR" property="disasterID"/>
+        <result column="disasterDate" jdbcType="VARCHAR" property="disasterDate"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="disasterType" jdbcType="VARCHAR" property="disasterType"/>
+        <result column="grade" jdbcType="VARCHAR" property="grade"/>
+        <result column="picture" jdbcType="BLOB" property="picture"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="reportingUnit" jdbcType="VARCHAR" property="reportingUnit"/>
+    </resultMap>
+    <sql id="BASE_TABLE">
+        commdisaster
+    </sql>
+
+    <sql id="base_COLUMN">
+        idCommDisaster,disasterID,disasterDate,location,disasterType,grade,picture,note,reportingUnit
+    </sql>
+
+    <!--查询所有灾情-->
+    <select id="queryAll" resultType="com.example.demo.entity.CommDisaster">
+        select * from commdisaster
+    </select>
+
+    <!--插入一条新数据-->
+    <insert id="insert" parameterType="com.example.demo.entity.CommDisaster">
+        insert into commdisaster (disasterID,disasterDate,location,disasterType,grade,picture,note,reportingUnit)values (#{disasterID},#{disasterDate},#{location},#{disasterType},#{grade},#{picture},#{note},#{reportingUnit})
+    </insert>
+    <!--按照id删除-->
+    <delete id="delete" parameterType="int">
+        delete from commdisaster where commdisaster.idCommDisaster=#{idCommDisaster}
+    </delete>
+
+    <!--修改数据-->
+    <update id="update" parameterType="com.example.demo.entity.CommDisaster">
+    update commdisaster set disasterID=#{disasterID},disasterDate=#{disasterDate},location=#{location},
+    disasterType=#{disasterType},grade=#{grade},picture=#{picture},note=#{note},reportingUnit=#{reportingUnit} where commdisaster.idCommDisaster =#{idCommDisaster}
+</update>
+
+    <!--迭代二新增 @luo-->
+    <!--按照19编码查询-->
+    <select id="query" parameterType="char" resultType="com.example.demo.entity.CommDisaster">
+        select * from commdisaster where commdisaster.disasterID=#{disasterID}
+    </select>
+    <!--按照19位编码删除-->
+    <delete id="delete19" parameterType="char">
+        delete from commdisaster where commdisaster.disasterID=#{disasterID}
+    </delete>
+    <!--按照19位编码修改数据-->
+    <update id="update19" parameterType="com.example.demo.entity.CommDisaster">
+    update commdisaster set disasterDate=#{disasterDate},location=#{location},
+    disasterType=#{disasterType},grade=#{grade},picture=#{picture},note=#{note},reportingUnit=#{reportingUnit} where commdisaster.disasterID =#{disasterID}
+</update>
+    <!--迭代二 2020/05/11-->
+
+    <select id="getpage" resultMap="BaseResultMap">
+        select * from commdisaster LIMIT #{stratRow},#{endRow}
+    </select>
+
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*) from commdisaster
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from commdisaster
+    </select>
+
+
+</mapper>

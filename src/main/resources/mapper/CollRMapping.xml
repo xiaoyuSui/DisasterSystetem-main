@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CollRecordMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.CollRecord">
+        <result column="idCollRecord" jdbcType="INTEGER" property="idCollRecord"/>
+        <result column="disasterID" jdbcType="CHAR" property="disasterID"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="disasterDate" jdbcType="VARCHAR" property="disasterDate"/>
+        <result column="disasterType" jdbcType="VARCHAR" property="disasterType"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="picture" jdbcType="BLOB" property="picture"/>
+        <result column="reportingUnit" jdbcType="VARCHAR" property="reportingUnit"/>
+    </resultMap>
+    <!--查询所有灾情-->
+    <select id="queryAll" resultType="com.example.demo.entity.CollRecord">
+        select * from collapserecord
+    </select>
+
+    <!--插入一条新数据-->
+    <insert id="insert" parameterType="com.example.demo.entity.CollRecord">
+        insert into collapserecord (disasterID, location, disasterDate, disasterType, status,note, picture, reportingUnit)values (#{disasterID},#{location},#{disasterDate},#{disasterType},#{status},#{note},#{picture},#{reportingUnit})
+    </insert>
+    <!--按照id删除-->
+    <delete id="delete" parameterType="int">
+        delete from collapserecord where collapserecord.idCollRecord=#{idCollRecord}
+    </delete>
+
+    <!--修改数据-->
+    <update id="update" parameterType="com.example.demo.entity.CollRecord">
+    update collapserecord set disasterID=#{disasterID},location=#{location},disasterDate=#{disasterDate},
+    disasterType=#{disasterType},status=#{status},note=#{note},picture=#{picture},reportingUnit=#{reportingUnit} where collapserecord.idCollRecord=#{idCollRecord}
+</update>
+
+
+    <!--按照19位编码查询-->
+    <select id="query" parameterType="CHAR" resultType="com.example.demo.entity.CollRecord">
+        select * from collapserecord where collapserecord.disasterID=#{disasterID}
+    </select>
+    <!--按照19位编码删除-->
+    <delete id="delete19" parameterType="CHAR">
+        delete from collapserecord where collapserecord.disasterID=#{disasterID}
+    </delete>
+    <!--按照19位编码修改数据-->
+    <update id="update19" parameterType="com.example.demo.entity.CollRecord">
+    update collapserecord set location=#{location},disasterDate=#{disasterDate},
+    disasterType=#{disasterType},status=#{status},note=#{note},picture=#{picture},reportingUnit=#{reportingUnit} where collapserecord.disasterID =#{disasterID}
+</update>
+
+    <select id="getpage" resultMap="BaseResultMap">
+        select * from collapserecord LIMIT #{stratRow},#{endRow}
+    </select>
+
+    <select id="findAllCount" resultType="java.lang.Integer">
+        select count(*) from collapserecord
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from collapserecord
+    </select>
+
+
+</mapper>

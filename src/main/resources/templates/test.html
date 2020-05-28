@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>bootstrap-table使用</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.js"></script>
+
+
+
+
+
+</head>
+<style>
+    .black{
+        color: black;
+    }
+    iniput{
+        color:black;
+    }
+    .hide{
+        display: none;
+    }
+    .back{
+        background: rgba(0,0,0,0.3);/* r:red g:green b:blue a:alpha(半透明):0-1,1是不透明，0是全透明 */
+        color: white;
+    }
+    .title{
+        color: transparent;
+        background-color : black;
+        text-shadow : rgba(255,255,255,0.5) 0 5px 6px, rgba(255,255,255,0.2) 1px 3px 3px;
+        -webkit-background-clip : text;
+        font-size: 50px;
+        text-align: center;
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+    .test{
+        text-align: center;
+        color: aliceblue;
+        font-size: 70px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+
+    }
+
+    .pic{
+        background-image: url("/background.jpg");
+    }
+    .table_li{
+        background-color: antiquewhite;
+    }
+    .col-xs-1-5 {
+        width: 18%;
+        float: left;
+    }
+
+</style>
+<body class="pic">
+
+
+<nav class = "navbar navbar-default back" role = "navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="/total">多源灾情数据管理服务系统</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">人员伤亡及失踪&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/commd">死亡</a></li>
+                <li><a href="/coll">失踪</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">房屋破坏&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/commd">土木</a></li>
+                <li><a href="/coll">砖混</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">生命线工程灾情&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/commd">交通</a></li>
+                <li><a href="/coll">通信</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">次生灾害&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/commd">崩塌</a></li>
+                <li><a href="/coll">滑坡</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown">震情&nbsp;<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/commd">基本震情</a></li>
+                <li><a href="/coll">灾情预测</a></li>
+            </ul>
+        </li>
+        <li><a href="/request">发送数据</a></li>
+    </ul>
+</nav>
+<div class="test">
+    多源灾情数据管理服务系统
+</div>
+<!--
+<button id="delete" type="button" class="btn btn-default btn-lg hide" style="float: right">删除数据</button>
+-->
+<div class="container back" >
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="col-xs-1-5 "><a href="#tab1" role="tab" data-toggle="tab" class="text-center">通信工程灾情</a></li>
+            <li role="presentation" class="col-xs-1-5 "><a href="#tab2" role="tab" data-toggle="tab" class="text-center">崩塌次生灾害</a></li>
+            <li role="presentation" class="col-xs-1-5 "><a href="#tab3" role="tab" data-toggle="tab" class="text-center">地震灾情预测</a></li>
+            <li role="presentation" class="col-xs-1-5 "><a href="#tab4" role="tab" data-toggle="tab" class="text-center">人员伤亡及失踪</a></li>
+            <li role="presentation" class="col-xs-1-5 "><a id="CS" href="#tab5" role="tab" data-toggle="tab" class="text-center">房屋破坏</a></li>
+        </ul>
+    </div>
+    <div class="tab-content vertical-tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tab1">
+            <br/>
+            <table id="tb_commdisaster"></table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab2">
+            <br/>
+            <table id="tb_collrecord"></table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab3">
+            <br/>
+            <table id="tb_disaprediction"></table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab4">
+            <br/>
+            <table id="tb_deathstatistics"></table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="tab5">
+            <br/>
+            <table id="tb_civilstructure"></table>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 50px;"></div>
+<div id="inup_CivilStructure" class="container hide">
+    <!-- class="form-inline" 不常用，了解一下，见个效果就好 -->
+    <form class="form-inline black">
+        数据ID<input id="idCivilStructure" type="text" />
+        灾情ID<input id="CS_disasterID" type="text" />
+        时间<input id="CS_disasterDate" type="text" />
+        地点<input id="CS_location"type="text" />
+        未受损面积<input id="intactSquare" type="text" />
+        损毁面积<input id="damagedSquare"type="text" />
+        毁坏面积<input id="destroyedSquare"type="text" />
+        备注<input id="CS_note"type="text" />
+        报告单元<input id="CS_reportingUnit"type="text" />
+    </form>
+    <button id="insertCS" type="button" class="btn btn-default btn-lg" style="float: right">上传数据</button>
+    <button id="updateCS" type="button" class="btn btn-default btn-lg" style="float: right">修改数据</button>
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+    $(function(){
+        var oTable = TableInit();
+        oTable.Init();
+    });
+
+    function TableInit() {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function() {
+            $("#button").click(function(){
+                location.href="http://114.116.87.15:8080/TestMSHD_war/";
+            });
+            $("#CS").click(function(){
+                $("#inup_CivilStructure").removeClass('hide');//移除class
+                $("#inup_CivilStructure").addClass('back');//添加class
+            });
+            $("#insertCS").click(function(){
+                var adata = {
+                    "idCivilStructure": parseInt($("#idCivilStructure").val()),
+                    "disasterID":$("#CS_disasterID").val(),
+                    "disasterDate":$("#CS_disasterDate").val(),
+                    "location":$("#CS_location").val(),
+                    "intactSquare":$("#intactSquare").val(),
+                    "damagedSquare":$("#damagedSquare").val(),
+                    "destroyedSquare":$("#destroyedSquare").val(),
+                    "note":$("#CS_note").val(),
+                    "reportingUnit":$("#CS_reportingUnit").val(),
+                }
+                var data = JSON.stringify(adata);
+                $.ajax({
+                    type : "POST",                           //通过POST方式上传请求
+                    contentType : "application/json",//上传内容格式为json结构
+                    data:data,
+                    //data : data,                                 //上传的参数
+                    url : "/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    success : function() {		      //请求成功的回调函数
+                        alert("添加数据成功")
+                    },
+                    error : function(e) {		      //请求失败的回调函数
+                        alert("添加数据失败")
+                    }
+                });
+            });
+            $("#updateCS").click(function(){
+                var adata = {
+                    "idCivilStructure": parseInt($("#idCivilStructure").val()),
+                    "disasterID":$("#CS_disasterID").val(),
+                    "disasterDate":$("#CS_disasterDate").val(),
+                    "location":$("#CS_location").val(),
+                    "intactSquare":$("#intactSquare").val(),
+                    "damagedSquare":$("#damagedSquare").val(),
+                    "destroyedSquare":$("#destroyedSquare").val(),
+                    "note":$("#CS_note").val(),
+                    "reportingUnit":$("#CS_reportingUnit").val(),
+                }
+                var data = JSON.stringify(adata);
+                $.ajax({
+                    type : "POST",                           //通过POST方式上传请求
+                    contentType : "application/json",//上传内容格式为json结构
+                    data:data,
+                    //data : data,                                 //上传的参数
+                    url : "/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    success : function() {		      //请求成功的回调函数
+                        alert("添加数据成功")
+                    },
+                    error : function(e) {		      //请求失败的回调函数
+                        alert("添加数据失败")
+                    }
+                });
+            });
+
+
+            $('#tb_commdisaster').bootstrapTable({
+                url: "/testCommD/getPage",
+                pagination: true, //分页
+                search: false, //显示搜索框
+                sidePagination: "server", //服务端处理分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                responseHandler:function(res) {
+                    return {
+                        "total":res.total,//总页数
+                        "rows": res.data //数据
+                    }
+                },
+                onDblClickRow: function(row) {
+                    var adata = {
+                        "idCommDisaster":row.idCommDisaster,
+                        "disasterID":row.disasterID,
+                        "disasterDate":row.disasterDate,
+                        "location":row.location,
+                        "disasterType":row.disasterType,
+                        "grade":row.grade,
+                        "picture":row.picture,
+                        "note":row.note,
+                        "reportingUnit":row.reportingUnit
+                    }
+                    var data = JSON.stringify(adata);
+                    $.ajax({
+                        type : "POST",                           //通过POST方式上传请求
+                        contentType : "application/request",//上传内容格式为json结构
+                        data : data,                                 //上传的参数
+                        url : "/testCommD/addUser",     //请求的url。与后端@Request Mapping注解中的值一致。
+                        success : function() {		      //请求成功的回调函数
+                            alert("请求成功")
+                        },
+                        error : function(e) {		      //请求失败的回调函数
+                            alert("请求失败")
+                        }
+                    });
+                },
+                columns: [
+                    {
+                        title: 'ID',
+                        field: 'idCommDisaster',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '灾情ID',
+                        field: 'disasterID',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '时间',
+                        field: 'disasterDate',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '地点',
+                        field: 'location',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '类型',
+                        field: 'disasterType',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '等级',
+                        field: 'grade',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '图片',
+                        field: 'picture',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '备注',
+                        field: 'note',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '报告单元',
+                        field: 'reportingUnit',
+                        align: 'center',
+                        valign: 'middle',
+                    }
+                ]
+            });
+
+            $('#tb_collrecord').bootstrapTable({
+                url: "/testCollR/getPage",
+                pagination: true, //分页
+                search: false, //显示搜索框
+                sidePagination: "server", //服务端处理分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                responseHandler:function(res) {
+                    return {
+                        "total":res.total,//总页数
+                        "rows": res.data //数据
+                    }
+                },
+                columns: [
+                    {
+                        title: '灾情ID',
+                        field: 'disasterID',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '时间',
+                        field: 'disasterDate',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '地点',
+                        field: 'location',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '类型',
+                        field: 'disasterType',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '状态',
+                        field: 'status',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '图片',
+                        field: 'picture',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '备注',
+                        field: 'note',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '报告单元',
+                        field: 'reportingUnit',
+                        align: 'center',
+                        valign: 'middle',
+                    }
+                ]
+            });
+
+            $('#tb_disaprediction').bootstrapTable({
+                url: "/testDisaP/getPage",
+                pagination: true, //分页
+                search: false, //显示搜索框
+                sidePagination: "server", //服务端处理分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                responseHandler:function(res) {
+                    return {
+                        "total":res.total,//总页数
+                        "rows": res.data //数据
+                    }
+                },
+                columns: [
+                    {
+                        title: '灾情ID',
+                        field: 'disasterID',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '时间',
+                        field: 'disasterDate',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '地点',
+                        field: 'location',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '经度',
+                        field: 'longitude',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '纬度',
+                        field: 'latitude',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '震源深度',
+                        field: 'depth',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '震级',
+                        field: 'magnitude',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '强度',
+                        field: 'intensity',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '类型',
+                        field: 'disasterType',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '图片',
+                        field: 'picture',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '备注',
+                        field: 'note',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '报告单元',
+                        field: 'reportingUnit',
+                        align: 'center',
+                        valign: 'middle',
+                    }
+                ]
+            });
+
+            $('#tb_deathstatistics').bootstrapTable({
+                url: "/testDeathS/getPage",
+                pagination: true, //分页
+                search: false, //显示搜索框
+                sidePagination: "server", //服务端处理分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                responseHandler:function(res) {
+                    return {
+                        "total":res.total,//总页数
+                        "rows": res.data //数据
+                    }
+                },
+                columns: [
+                    {
+                        title: '数据ID',
+                        field: 'idDeathStatistics',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '灾情ID',
+                        field: 'disasterID',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '时间',
+                        field: 'disasterDate',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '伤亡人数',
+                        field: 'numberDeath',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '报告单元',
+                        field: 'reportingUnit',
+                        align: 'center',
+                        valign: 'middle',
+                    }
+                ]
+            });
+
+            $('#tb_civilstructure').bootstrapTable({
+                url: "/testCivilS/getPage",
+                pagination: true, //分页
+                search: false, //显示搜索框
+                sidePagination: "server", //服务端处理分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 5,                       //每页的记录行数（*）
+                responseHandler:function(res) {
+                    return {
+                        "total":res.total,//总页数
+                        "rows": res.data //数据
+                    }
+                },
+                onlClickRow:function(row){
+                    $("#delete").removeClass('hide');//移除class
+                },
+                columns: [
+                    {
+                        title: '数据ID',
+                        field: 'idCivilStructure',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '灾情ID',
+                        field: 'disasterID',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '时间',
+                        field: 'disasterDate',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '地点',
+                        field: 'location',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '未受损面积',
+                        field: 'intactSquare',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '损毁面积',
+                        field: 'damagedSquare',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '毁坏面积',
+                        field: 'destroyedSquare',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '备注',
+                        field: 'note',
+                        align: 'center',
+                        valign: 'middle',
+                    },
+                    {
+                        title: '报告单元',
+                        field: 'reportingUnit',
+                        align: 'center',
+                        valign: 'middle',
+                    }
+
+
+
+                ]
+            });
+        };
+        return oTableInit;
+    };
+
+    function rowStyle() {
+        var style = {};
+        style={css:{'back':'#ed5565'}};
+        return style;
+    }
+    function selBycondition(){
+        var url = "/getPage?name=aaa";
+        $("#tb_departments").bootstrapTable('refresh',{'url':url});
+    };
+    /*获取选中行对象*/
+    function getContent(){
+        var index = $("#table").find("tr.danger").data("index");
+        var list = $("#table").bootstrapTable('getData')[index];
+        if(list==null){
+            alert("请选中一行");
+            return false;
+        }else{
+            $("#modal3").attr({"data-target":"#myModal3"});
+        }
+        $("#dataForm3 input[type='text']").each(function(){
+            $(this).val(list[$(this).attr("name")] ? list[$(this).attr("name")] : "");
+        });
+    }
+
+</script>
+</html>
