@@ -11,10 +11,6 @@
     <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.js"></script>
 
-
-
-
-
 </head>
 <style>
     .black{
@@ -63,7 +59,6 @@
 </style>
 <body class="pic">
 
-
 <nav class = "navbar navbar-default back" role = "navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="/total">多源灾情数据管理服务系统</a>
@@ -72,8 +67,8 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">人员伤亡及失踪&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">死亡</a></li>
-                <li><a href="/coll">失踪</a></li>
+                <li><a href="/mshd/commd">死亡</a></li>
+                <li><a href="/mshd/coll">失踪</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -148,12 +143,15 @@
                         type : "POST",                           //通过POST方式上传请求
                         contentType : "application/json",//上传内容格式为json结构
                         data : data,                                 //上传的参数
-                        url : "/Request/update",     //请求的url。与后端@Request Mapping注解中的值一致。
+                        url : "/mshd/send/readData",     //请求的url。与后端@Request Mapping注解中的值一致。
                         success : function() {		      //请求成功的回调函数
                             alert("请求成功")
                         },
                         error : function(e) {		      //请求失败的回调函数
                             alert(adata.disasterID+"   "+adata.status)
+                        },
+                        failread:function(e) {		      //请求失败的回调函数
+                            alert("读取失败")
                         }
                     });
                 }
@@ -161,7 +159,7 @@
 
 
             $('#tb_request').bootstrapTable({
-                url: "/Request/getPage",
+                url: "/mshd/Request/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -200,7 +198,7 @@
                         valign: 'middle',
                     },
                     {
-                        title: 'oURL',
+                        title: '发送地址',
                         field: 'oURL',
                         align: 'center',
                         valign: 'middle',

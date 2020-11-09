@@ -24,6 +24,8 @@ public class HtmlController {
     public String test(){return "daohang";}
     @RequestMapping("/total")
     public String total(){return "test";}
+    @RequestMapping("/index")
+    public String index(){return "index";}
 
     @ResponseBody
     @RequestMapping("/getPage")

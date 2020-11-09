@@ -1,6 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="renderer" content="webkit"> <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>bootstrap-table使用</title>
@@ -50,7 +52,7 @@
     }
 
     .pic{
-        background-image: url("/background.jpg");
+        background-image: url("/mshd/background.jpg");
     }
     .table_li{
         background-color: antiquewhite;
@@ -59,11 +61,60 @@
         width: 18%;
         float: left;
     }
+    body{
+        margin: 0px;
+    }
+    .zhezhao{
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        background: rgba(0,0,0,0.5);
+        width: 100%;
+        height: 100%;
+
+    }
+    .tankuang{
+        position: relative;
+        background: #fff;
+        width: 50%;
+        height: 80%;
+        border-radius: 5px;
+        margin: 5% auto;
+
+    }
+    #header{
+        height: 40px;
+    }
+    #header-right{
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        background: red;
+        color: #fff;
+        right: 5px;
+        top: 5px;
+        text-align: center;
+    }
+    .outer {
+        display: table;
+    }
+    .inner {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    .inner_title{
+        text-align: center;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        font-size: x-large;
+    }
 
 </style>
 <body class="pic">
 
-<nav class = "navbar navbar-default back" role = "navigation">
+<nav class = "navbar navbar-default back black" role = "navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="/total">多源灾情数据管理服务系统</a>
     </div>
@@ -71,8 +122,8 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">人员伤亡及失踪&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">死亡</a></li>
-                <li><a href="/coll">失踪</a></li>
+                <li><a href="/mshd/commd">死亡</a></li>
+                <li><a href="/mshd/coll">失踪</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -110,20 +161,77 @@
     <table id="tb_collrecord"></table>
 
 
+
 <div style="padding-top: 50px;"></div>
 
- <form class="form-inline black">
-        灾情ID<input id="disasterID" type="text" />
-        时间<input id="disasterDate" type="text" />
-        地点<input id="location"type="text" />
-        类型<input id="disasterType"type="text" />
-        状态<input id="status"type="text" />
-        备注<input id="note"type="text" />
-        照片<input id="picture"type="text" />
-        报告单元<input id="reportingUnit"type="text" />
- </form>
-    <button id="insert" type="button">插入数据</button>
-    <button id="update" type="button">更新数据</button>
+
+
+
+<button type="button" onclick="dianwo()">点我</button>
+<button type="button" onclick="insert()">插入数据</button>
+<button type="button" onclick="update()">更新数据</button>
+<div class="zhezhao" id='zhezhao'>
+    <div class="tankuang">
+        <div id="header" >
+            <div align="center" class="inner_title" id="insert_text">插入数据</div>
+            <div align="center" class="inner_title" id="update_text">插入数据</div>
+            <table align="center" >
+                <!-- 用户名：aa,密码:aa -->
+                <tr>
+                    <td >灾情ID<input id="disasterID" type="text" /></td>
+                </tr>
+                <tr>
+                    <td >时间<input id="disasterDate" type="text" /></td>
+                </tr>
+                <tr>
+                    <td > 地点<input id="location"type="text" /></td>
+                </tr>
+                <tr>
+                    <td>  类型<input id="disasterType"type="text" /></td>
+                </tr>
+                <tr>
+                    <td> 状态<input id="status"type="text" /></td>
+                </tr>
+                <tr>
+                    <td>  备注<input id="note"type="text" /></td>
+                </tr>
+                <tr>
+                    <td>照片<input id="picture"type="text" /></td>
+                </tr>
+                <tr>
+                    <td>报告单元<input id="reportingUnit"type="text" /></td>
+                </tr>
+                <tr><button id="insert" type="button">确认</button>
+                    <button id="update" type="button">确认</button></tr>
+            </table>
+            <div id="header-right" onclick="hidder()">x</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById('zhezhao').style.display="none";
+    function dianwo(){
+        document.getElementById('zhezhao').style.display="";
+    }
+    function insert() {
+        document.getElementById('zhezhao').style.display="";
+        document.getElementById('insert_text').style.display="";
+        document.getElementById('insert').style.display="";
+        document.getElementById('update_text').style.display="none";
+        document.getElementById('update').style.display="none";
+    }
+    function update() {
+        document.getElementById('zhezhao').style.display="";
+        document.getElementById('insert_text').style.display="none";
+        document.getElementById('insert').style.display="none";
+        document.getElementById('update_text').style.display="";
+        document.getElementById('update').style.display="";
+    }
+    function hidder(){
+        document.getElementById('zhezhao').style.display="none";
+    }
+</script>
+
 </body>
 
 
@@ -150,7 +258,7 @@
                         //contentType : "application/json",//上传内容格式为json结构
                         //data:data,
                         //data : data,                                 //上传的参数
-                        url : "/testCollR/delete/"+id,     //请求的url。与后端@Request Mapping注解中的值一致。
+                        url : "/mshd/testCollR/delete/"+id,     //请求的url。与后端@Request Mapping注解中的值一致。
                         success : function() {		      //请求成功的回调函数
                             alert("删除数据成功")
                         },
@@ -163,7 +271,7 @@
 
 
             $('#tb_collrecord').bootstrapTable({
-                url: "/testCollR/getPage",
+                url: "/mshd/testCollR/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -256,7 +364,7 @@
                     type: "POST",                           //通过POST方式上传请求
                     contentType: "application/json",//上传内容格式为json结构
                     data: data,//上传的参数
-                    url: "/testCollR/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    url: "/mshd/testCollR/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
                     success: function () {		      //请求成功的回调函数
                         alert(adata.note)
                     },
@@ -285,7 +393,7 @@
                     contentType: "application/json",//上传内容格式为json结构
                     data: data,
                     //data : data,                                 //上传的参数
-                    url: "/testCollR/update",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    url: "/mshd/testCollR/update",     //请求的url。与后端@Request Mapping注解中的值一致。
                     success: function () {		      //请求成功的回调函数
                         alert(data.note.toString())
                     },

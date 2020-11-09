@@ -42,7 +42,4 @@ public class DisasterRequestController {
     @RequestMapping("/update")
     public int UpdateDP(@RequestBody DisasterRequest disasterRequest){return  disasterRequestService.update(disasterRequest);}
 
-
-
-
 }

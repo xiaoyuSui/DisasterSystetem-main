@@ -63,7 +63,6 @@
 </style>
 <body class="pic">
 
-
 <nav class = "navbar navbar-default back" role = "navigation">
     <div class="navbar-header">
         <a class="navbar-brand" href="/total">多源灾情数据管理服务系统</a>
@@ -72,39 +71,39 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">人员伤亡及失踪&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">死亡</a></li>
-                <li><a href="/coll">失踪</a></li>
+                <li><a href="/table_war/commd">死亡</a></li>
+                <li><a href="/table_war/coll">失踪</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">房屋破坏&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">土木</a></li>
-                <li><a href="/coll">砖混</a></li>
+                <li><a href="/table_war/commd">土木</a></li>
+                <li><a href="/table_war/coll">砖混</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">生命线工程灾情&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">交通</a></li>
-                <li><a href="/coll">通信</a></li>
+                <li><a href="/table_war/commd">交通</a></li>
+                <li><a href="/table_war/coll">通信</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">次生灾害&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">崩塌</a></li>
-                <li><a href="/coll">滑坡</a></li>
+                <li><a href="/table_war/commd">崩塌</a></li>
+                <li><a href="/table_war/coll">滑坡</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a href="#" data-toggle="dropdown">震情&nbsp;<span class="caret"></span></a>
             <ul class="dropdown-menu">
-                <li><a href="/commd">基本震情</a></li>
-                <li><a href="/coll">灾情预测</a></li>
+                <li><a href="/table_war/commd">基本震情</a></li>
+                <li><a href="/table_war/coll">灾情预测</a></li>
             </ul>
         </li>
-        <li><a href="/request">发送数据</a></li>
+        <li><a href="/table_war/request">发送数据</a></li>
     </ul>
 </nav>
 <div class="test">
@@ -203,7 +202,7 @@
                     contentType : "application/json",//上传内容格式为json结构
                     data:data,
                     //data : data,                                 //上传的参数
-                    url : "/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    url : "/table_war/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
                     success : function() {		      //请求成功的回调函数
                         alert("添加数据成功")
                     },
@@ -230,7 +229,7 @@
                     contentType : "application/json",//上传内容格式为json结构
                     data:data,
                     //data : data,                                 //上传的参数
-                    url : "/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
+                    url : "/table_war/testCivilS/insert",     //请求的url。与后端@Request Mapping注解中的值一致。
                     success : function() {		      //请求成功的回调函数
                         alert("添加数据成功")
                     },
@@ -242,7 +241,7 @@
 
 
             $('#tb_commdisaster').bootstrapTable({
-                url: "/testCommD/getPage",
+                url: "/table_war/testCommD/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -271,7 +270,7 @@
                         type : "POST",                           //通过POST方式上传请求
                         contentType : "application/request",//上传内容格式为json结构
                         data : data,                                 //上传的参数
-                        url : "/testCommD/addUser",     //请求的url。与后端@Request Mapping注解中的值一致。
+                        url : "/table_war/testCommD/addUser",     //请求的url。与后端@Request Mapping注解中的值一致。
                         success : function() {		      //请求成功的回调函数
                             alert("请求成功")
                         },
@@ -339,7 +338,7 @@
             });
 
             $('#tb_collrecord').bootstrapTable({
-                url: "/testCollR/getPage",
+                url: "/table_war/testCollR/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -404,7 +403,7 @@
             });
 
             $('#tb_disaprediction').bootstrapTable({
-                url: "/testDisaP/getPage",
+                url: "/table_war/testDisaP/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -493,7 +492,7 @@
             });
 
             $('#tb_deathstatistics').bootstrapTable({
-                url: "/testDeathS/getPage",
+                url: "/table_war/testDeathS/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页
@@ -540,7 +539,7 @@
             });
 
             $('#tb_civilstructure').bootstrapTable({
-                url: "/testCivilS/getPage",
+                url: "/table_war/testCivilS/getPage",
                 pagination: true, //分页
                 search: false, //显示搜索框
                 sidePagination: "server", //服务端处理分页

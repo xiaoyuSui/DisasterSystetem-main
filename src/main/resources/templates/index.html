@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="./css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/bootstrap-table.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/bootstrap-table.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-table/1.16.0/locale/bootstrap-table-zh-CN.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>CircleMarker</title>
+    <style type="text/css">
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin:0;
+        }
+    </style>
+    <script type="text/javascript" src='https://a.amap.com/jsapi_demos/static/resource/capitals.js'></script>
+    <script type="text/javascript" src='https://webapi.amap.com/maps?v=1.4.15&key=616473af60d1640825aa79daa58420ce'></script>
+</head>
+<body>
+
+<nav class="blue darken-1">
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">DeathStatistics</a></li>
+        <li><a href="#!">MissingStatistics</a></li>
+    </ul>
+    <ul id="dropdown2" class="dropdown-content">
+        <li><a href="#!">Civil</a></li>
+        <li><a href="#!">Masonry</a></li>
+    </ul>
+    <ul id="dropdown3" class="dropdown-content">
+        <li><a href="#!">TrafficDisaster</a></li>
+        <li><a href="#!">CommDisaster</a></li>
+    </ul>
+    <ul id="dropdown4" class="dropdown-content">
+        <li><a href="#!">Collapse</a></li>
+        <li><a href="#!">Landslide</a></li>
+    </ul>
+    <ul id="dropdown5" class="dropdown-content">
+        <li><a href="#!">DeathInfo</a></li>
+        <li><a href="#!">Prediction</a></li>
+    </ul>
+
+
+    <div class="nav-wrapper">
+        <a href="#!" class="brand-logo"><i class="material-icons">cloud</i>多源异构灾情数据综合管理系统</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <!-- Dropdown Trigger -->
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown1">人员伤亡及失踪<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown2">房屋破坏<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown3">生命线工程灾情<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown4">次生灾害<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a class="dropdown-trigger" href="#!" data-target="dropdown5">震情<i class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="sass.html"><i class="material-icons left">search</i>查找</a></li>
+
+        </ul>
+    </div>
+</nav>
+
+
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <br><br>
+        <div class="row center">
+            <h5 class="header col s12 light">点击发送，我们将发送被请求的数据。点击上传，我们将根据上传内容修改数据。</h5>
+        </div>
+        <div class="row center">
+            <a class="waves-effect waves-light btn"><i class="material-icons right">file_download</i>发送</a>
+            <a class="waves-effect waves-light btn"><i class="material-icons right">file_upload</i>上传</a>
+
+        </div>
+        <br><br>
+
+    </div>
+</div>
+
+
+<div id="map"></div>
+<script>
+    var map = new AMap.Map('map', {
+        // viewMode: '3D',
+        zoom: 4,
+        center: [ 108, 34]
+    })
+    var locations = [{
+        "name": "家和园",
+        "center": [116.36067, 39.680342]
+    }, {
+        "citycode": "023",
+        "adcode": "500000",
+        "name": "重庆市",
+        "center": [106.551643, 29.562849]
+    }, {
+        "citycode": "1853",
+        "adcode": "820000",
+        "name": "澳门特别行政区",
+        "center": [113.543028, 22.186835]
+    }]
+
+
+    for(var i=0;i<locations.length;i+=1){
+        var center = locations[i].center;
+        var circleMarker = new AMap.CircleMarker({
+            center:center,
+            radius:10+Math.random()*10,//3D视图下，CircleMarker半径不要超过64px
+            strokeColor:'white',
+            strokeWeight:2,
+            strokeOpacity:0.5,
+            fillColor:'rgba(0,0,255,1)',
+            fillOpacity:0.5,
+            zIndex:10,
+            bubble:true,
+            cursor:'pointer',
+            clickable: true
+        })
+        circleMarker.setMap(map)
+    }
+</script>
+
+
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>
+<script type="text/javascript" src='https://a.amap.com/jsapi_demos/static/resource/capitals.js'></script>
+<script>
+    $(".dropdown-trigger").dropdown();
+</script>
+
+<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=5babec67e4a9375018a679654bf5697b"></script>
+</body>
+</html>
